@@ -33,7 +33,7 @@ class GoogleDirections
   end
 
   # an example URL to be generated
-  #http://maps.google.com/maps/api/directions/xml?origin=St.+Louis,+MO&destination=Nashville,+TN&sensor=false&key=ABQIAAAAINgf4OmAIbIdWblvypOUhxSQ8yY-fgrep0oj4uKpavE300Q6ExQlxB7SCyrAg2evsxwAsak4D0Liiv
+  #https://maps.google.com/maps/api/directions/xml?origin=St.+Louis,+MO&destination=Nashville,+TN&sensor=false&key=ABQIAAAAINgf4OmAIbIdWblvypOUhxSQ8yY-fgrep0oj4uKpavE300Q6ExQlxB7SCyrAg2evsxwAsak4D0Liiv
 
   def drive_time_in_minutes
     if @status != "OK"
@@ -74,7 +74,7 @@ class GoogleDirections
   end
 
   def public_url
-    "http://maps.google.com/maps?saddr=#{transcribe(@origin)}&daddr=#{transcribe(@destination)}&hl=#{@options[:language]}&ie=UTF8"
+    "https://maps.google.com/maps?saddr=#{transcribe(@origin)}&daddr=#{transcribe(@destination)}&hl=#{@options[:language]}&ie=UTF8"
   end
 
   def steps
@@ -103,3 +103,70 @@ class Hash
 end
 
 
+class Route
+  
+  has_many :Deliveries #should not be dependent, don't destroy delivery if route is destroyed
+  
+  def initialize
+    
+    @waypoint = Array.new
+  
+  end
+
+  def add_waypoint
+    
+    # some while loop fetching input
+    # @waypoint.push(input) appends to array
+  
+  end
+
+end
+
+class Delivery
+  
+  #refer to ERD.png for attributes
+  #update ERD to include Route entity
+  attr_accessor :delivery_address, :delivery_time
+  
+  #earliest delivery times for the week
+  def self.earliest(day)
+    if day == nil
+      #some default value e.g. 8 am
+       
+    if day == saturday
+      #some value
+      
+    if day == sunday
+      #some value
+  end
+
+  #latest delivery times for the week
+  def self.latest(day)
+    if day == nil
+      #some default value e.g. 6 pm
+       
+    if day == saturday
+      #some value
+      
+    if day == sunday
+      #some value
+  end
+  
+end
+
+
+
+
+####TODO
+####optimize waypoints, unless given time constraint
+
+#### optimization logic:
+#### get deliveries of today
+#### if delivery_time != nil
+####    compare with other delivery_time
+####        push into appropriate spot
+#### else
+####    optimize based on distance
+
+#### to achieve this, use rails order method (default: ascends)
+####  e.g. @Waypoints.order('delivery_time')
