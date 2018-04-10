@@ -16,9 +16,8 @@ class DeliveriesController < ApplicationController
 
         unsorted_delivery = Hash.new
         Delivery.where("date = ?", Date.today).find_each do |delivery|
-            delivery_list[delivery.id] = order.addr
+            delivery_list[delivery.id] = delivery.addr
         end
-        
     end
     
 end
